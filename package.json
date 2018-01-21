@@ -5,8 +5,24 @@
   "main": "dist/main/index.js",
   "scripts": {
     "start": "electron .",
-    "build": "webpack",
-    "watch": "webpack --watch"
+    "local": "webpack",
+    "watch": "webpack --watch",
+    
+    "clean": "rm -rf ./dist",
+    "clean:osx": "rm -rf ./dist/osx",
+    "clean:win": "rm -rf ./dist/win",
+
+    "pack": "npm run pack:osx && npm run build:win",
+    "pack:osx": "npm run clean:osx && electron-packager . \"Markdown Editor\" --out=dist/osx --platform=darwin --arch=x64 --version=0.36.2 --icon=assets/osx/icon.icns --ignore=\"dist|assets\"",
+    "pack:win": "npm run clean:win && electron-packager . \"Markdown Editor\" --out=dist/win --platform=win32 --arch=ia32 --version=0.36.2 --icon=assets/win/icon.ico --ignore=\"dist|assets\"",
+
+    "build": "npm run build:osx && npm run build:win",
+    "build:osx": "npm run pack:osx && electron-builder \"dist/osx/Markdown Editor-darwin-x64/Markdown Editor.app\" --platform=osx --out=\"dist/osx\" --config=builder.json",
+    "build:win": "npm run pack:win && electron-builder \"dist/win/Markdown Editor-win32-ia32\" --platform=win --out=\"dist/win\" --config=builder.json",
+
+    "archive": "npm run archive:osx && npm run archive:win",
+    "archive:osx": "npm run build:osx && zip -j \"dist/osx/Markdown-Editor-osx.zip\" \"dist/osx/Markdown Editor.dmg\"",
+    "archive:win": "npm run build:win && zip -j \"dist/win/Markdown-Editor-win.zip\" \"dist/win/Markdown Editor Setup.exe\""
   },
   "author": "tadaken3",
   "license": "MIT",
@@ -18,12 +34,16 @@
     "css-loader": "^0.23.1",
     "electron": "^1.6.1",
     "style-loader": "^0.13.1",
-    "webpack": "^2.2.0"
+    "webpack": "^2.2.0",
+    "electron-builder": "^2.5.0",
+    "electron-packager": "^5.2.0",
+    "electron-prebuilt": "^0.36.2"
   },
   "dependencies": {
-    "marked": "^0.3.5",
+    "marked": "^0.3.6",
     "photon": "github:connors/photon",
     "react": "^15.4.2",
-    "react-dom": "^15.4.2"
+    "react-dom": "^15.4.2",
+    "electron-window-state": "^2.0.0"
   }
 }
