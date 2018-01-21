@@ -1,7 +1,8 @@
 import React from "react";
 import Editor from "./Editor";
 import Previewer from "./Previewer";
-import style from "./MarkdownEditorUI.css"
+import style from "./MarkdownEditorUI.css";
+import { ipcRenderer } from "electron";
 
 export default class MarkdownEditorUI extends React.Component {
   render() {
@@ -19,13 +20,25 @@ export default class MarkdownEditorUI extends React.Component {
         </div>
     );
   }
+  
   constructor(props) {
     super(props);
     this.state = { text: "" };
     this.onChangeText = this.onChangeText.bind(this);
   }
+  
   onChangeText(e){
     this.setState({text: e.target.value});
+  }
+  
+  componentDidMount() {
+    ipcRenderer.on("REQUEST_TEXT", () => {
+        ipcRenderer.send("REPLY_TEXT", this.state.text);
+    });
+  }
+
+  componentWillUnmount() {
+    ipcRenderer.removeAllListeners();
   }
 }
 

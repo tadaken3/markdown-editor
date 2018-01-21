@@ -1,6 +1,6 @@
-import {app, Menu, BrowserWindow } from "electron"
+import {app, Menu, BrowserWindow } from "electron";
 
-function setAppMenu(option) {
+function setAppMenu(options) {
     const template = [
     {
         label: "File",
@@ -8,7 +8,7 @@ function setAppMenu(option) {
          { label: "Open", accelerator: "CmdOrCtrl+O", click: () => options.openFile() },
          { label: "Save", accelerator: "CmdOrCtrl+S", click: () => options.saveFile() },
          { label: "Save As...", click: () => options.saveAsNewFile() },
-         { label: "Export PDF", click: () => options.ecportPDF() }
+         { label: "Export PDF", click: () => options.exportPDF() }
         ]
     },
     {
