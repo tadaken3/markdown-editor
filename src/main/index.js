@@ -3,12 +3,19 @@ import createMainWindow from "./createMainWindow";
 import setAppMenu from "./setAppMenu";
 import showSaveAsNewFileDialog from "./showSaveAsNewFileDialog";
 import createFileManager from "./createFileManager";
+import showOpenFileDialog from "./showOpenFileDialog"
 
 let mainWindow = null;
 let fileManager = null;
 
 function openFile() {
     console.log("openFile");
+    showOpenFileDialog()
+        .then((filePath) => fileManager.readFile(filePath))
+        .then((text) => mainWindow.sendText(text))
+        .catch((error) => {
+            console.log(error);
+        });
 }
 
 function saveFile() {

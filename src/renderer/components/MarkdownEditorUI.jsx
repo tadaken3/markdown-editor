@@ -35,6 +35,9 @@ export default class MarkdownEditorUI extends React.Component {
     ipcRenderer.on("REQUEST_TEXT", () => {
         ipcRenderer.send("REPLY_TEXT", this.state.text);
     });
+    ipcRenderer.on("SEND_TEXT", (_e, text) => {
+        this.setState({ text });
+    });
   }
 
   componentWillUnmount() {
