@@ -5,7 +5,7 @@ cache:
     - node_modules
 env:
   # Node はコマンドを個別に実行してインストールするため、ここでバージョンを指定する
-  - NODE_VERSION="4.1"
+  - NODE_VERSION="9.3"
 before_install:
   # nvm をインストールする。Travis の OS X 環境には nvm はデフォルトで入っていない
   - git clone https://github.com/creationix/nvm.git /tmp/.nvm
