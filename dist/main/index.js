@@ -130,6 +130,15 @@ function openFile() {
 
 function saveFile() {
     console.log("saveFile");
+    if (!fileManager.filePath) {
+        saveAsNewFile();
+        return;
+    }
+    mainWindow.requestText().then(function (text) {
+        return fileManager.overwriteFile(text);
+    }).catch(function (error) {
+        console.log(error);
+    });
 }
 
 function saveAsNewFile() {
@@ -192,23 +201,36 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var FileManager = function () {
     function FileManager() {
         _classCallCheck(this, FileManager);
+
+        this.filePath = "";
     }
 
     _createClass(FileManager, [{
         key: "saveFile",
         value: function saveFile(filePath, text) {
+            var _this = this;
+
             return new Promise(function (resolve) {
                 _fs2.default.writeFileSync(filePath, text);
+                _this.filePath = filePath;
                 resolve();
             });
         }
     }, {
         key: "readFile",
         value: function readFile(filePath) {
+            var _this2 = this;
+
             return new Promise(function (resolve) {
                 var text = _fs2.default.readFileSync(filePath, 'utf8');
+                _this2.filePath = filePath;
                 resolve(text);
             });
+        }
+    }, {
+        key: "overwriteFile",
+        value: function overwriteFile(text) {
+            return this.saveFile(this.filePath, text);
         }
     }]);
 

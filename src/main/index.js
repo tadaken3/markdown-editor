@@ -20,6 +20,15 @@ function openFile() {
 
 function saveFile() {
     console.log("saveFile");
+    if (!fileManager.filePath) {
+        saveAsNewFile();
+        return;
+    }
+    mainWindow.requestText()
+        .then((text) => fileManager.overwriteFile(text))
+        .catch((error) => {
+            console.log(error);
+        });
 }
 
 function saveAsNewFile() {
