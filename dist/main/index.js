@@ -63,122 +63,12 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 195);
+/******/ 	return __webpack_require__(__webpack_require__.s = 197);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 13:
-/***/ (function(module, exports) {
-
-module.exports = require("electron");
-
-/***/ }),
-
-/***/ 194:
-/***/ (function(module, exports) {
-
-module.exports = require("fs");
-
-/***/ }),
-
-/***/ 195:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
-var _electron = __webpack_require__(13);
-
-var _createMainWindow = __webpack_require__(83);
-
-var _createMainWindow2 = _interopRequireDefault(_createMainWindow);
-
-var _setAppMenu = __webpack_require__(84);
-
-var _setAppMenu2 = _interopRequireDefault(_setAppMenu);
-
-var _showSaveAsNewFileDialog = __webpack_require__(86);
-
-var _showSaveAsNewFileDialog2 = _interopRequireDefault(_showSaveAsNewFileDialog);
-
-var _createFileManager = __webpack_require__(82);
-
-var _createFileManager2 = _interopRequireDefault(_createFileManager);
-
-var _showOpenFileDialog = __webpack_require__(85);
-
-var _showOpenFileDialog2 = _interopRequireDefault(_showOpenFileDialog);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var mainWindow = null;
-var fileManager = null;
-
-function openFile() {
-    console.log("openFile");
-    (0, _showOpenFileDialog2.default)().then(function (filePath) {
-        return fileManager.readFile(filePath);
-    }).then(function (text) {
-        return mainWindow.sendText(text);
-    }).catch(function (error) {
-        console.log(error);
-    });
-}
-
-function saveFile() {
-    console.log("saveFile");
-    if (!fileManager.filePath) {
-        saveAsNewFile();
-        return;
-    }
-    mainWindow.requestText().then(function (text) {
-        return fileManager.overwriteFile(text);
-    }).catch(function (error) {
-        console.log(error);
-    });
-}
-
-function saveAsNewFile() {
-    console.log("saveAsNewFile");
-    Promise.all([(0, _showSaveAsNewFileDialog2.default)(), mainWindow.requestText()]).then(function (_ref) {
-        var _ref2 = _slicedToArray(_ref, 2),
-            filePath = _ref2[0],
-            text = _ref2[1];
-
-        return fileManager.saveFile(filePath, text);
-    }).catch(function (error) {
-        console.log(error);
-    });
-}
-
-function exportPDF() {
-    console.log("exportPDF");
-}
-
-_electron.app.on("ready", function () {
-    mainWindow = (0, _createMainWindow2.default)();
-    fileManager = (0, _createFileManager2.default)();
-    (0, _setAppMenu2.default)({ openFile: openFile, saveFile: saveFile, saveAsNewFile: saveAsNewFile, exportPDF: exportPDF });
-});
-
-_electron.app.on("window-all-closed", function () {
-    if (process.platform !== "darwin") {
-        _electron.app.quit();
-    }
-});
-
-_electron.app.on("activate", function (_e, hasVisibleWindows) {
-    if (!hasVisibleWindows) {
-        mainWindow = (0, _createMainWindow2.default)();
-    }
-});
-
-/***/ }),
-
-/***/ 82:
+/***/ 183:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -190,7 +80,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _fs = __webpack_require__(194);
+var _fs = __webpack_require__(196);
 
 var _fs2 = _interopRequireDefault(_fs);
 
@@ -245,7 +135,7 @@ exports.default = createFileManager;
 
 /***/ }),
 
-/***/ 83:
+/***/ 184:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -257,7 +147,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _electron = __webpack_require__(13);
+var _electron = __webpack_require__(24);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -304,7 +194,7 @@ exports.default = createMainWindow;
 
 /***/ }),
 
-/***/ 84:
+/***/ 185:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -314,7 +204,39 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _electron = __webpack_require__(13);
+var _electron = __webpack_require__(24);
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var PDFWindow = function PDFWindow(text) {
+    _classCallCheck(this, PDFWindow);
+
+    this.window = new _electron.BrowserWindow({ show: true });
+    this.window.loadURL("file://" + __dirname + "/../../pdf.html");
+    _electron.ipcMain.once("REQUEST_TEXT", function (e) {
+        e.returnValue = text;
+    });
+};
+
+function createPDFWindow(contents, fileManager) {
+    return new PDFWindow(contents, fileManager);
+}
+
+exports.default = createPDFWindow;
+
+/***/ }),
+
+/***/ 186:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _electron = __webpack_require__(24);
 
 function setAppMenu(options) {
     var template = [{
@@ -353,7 +275,7 @@ exports.default = setAppMenu;
 
 /***/ }),
 
-/***/ 85:
+/***/ 187:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -363,7 +285,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _electron = __webpack_require__(13);
+var _electron = __webpack_require__(24);
 
 function showOpenFileDialog() {
     return new Promise(function (resolve, reject) {
@@ -385,7 +307,7 @@ exports.default = showOpenFileDialog;
 
 /***/ }),
 
-/***/ 86:
+/***/ 188:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -395,7 +317,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _electron = __webpack_require__(13);
+var _electron = __webpack_require__(24);
 
 function showSaveAsNewFileDialog() {
     return new Promise(function (resolve, reject) {
@@ -412,6 +334,125 @@ function showSaveAsNewFileDialog() {
 }
 
 exports.default = showSaveAsNewFileDialog;
+
+/***/ }),
+
+/***/ 196:
+/***/ (function(module, exports) {
+
+module.exports = require("fs");
+
+/***/ }),
+
+/***/ 197:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+var _electron = __webpack_require__(24);
+
+var _createMainWindow = __webpack_require__(184);
+
+var _createMainWindow2 = _interopRequireDefault(_createMainWindow);
+
+var _setAppMenu = __webpack_require__(186);
+
+var _setAppMenu2 = _interopRequireDefault(_setAppMenu);
+
+var _showSaveAsNewFileDialog = __webpack_require__(188);
+
+var _showSaveAsNewFileDialog2 = _interopRequireDefault(_showSaveAsNewFileDialog);
+
+var _createFileManager = __webpack_require__(183);
+
+var _createFileManager2 = _interopRequireDefault(_createFileManager);
+
+var _showOpenFileDialog = __webpack_require__(187);
+
+var _showOpenFileDialog2 = _interopRequireDefault(_showOpenFileDialog);
+
+var _createPDFWindow = __webpack_require__(185);
+
+var _createPDFWindow2 = _interopRequireDefault(_createPDFWindow);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mainWindow = null;
+var fileManager = null;
+
+function openFile() {
+    console.log("openFile");
+    (0, _showOpenFileDialog2.default)().then(function (filePath) {
+        return fileManager.readFile(filePath);
+    }).then(function (text) {
+        return mainWindow.sendText(text);
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
+
+function saveFile() {
+    console.log("saveFile");
+    if (!fileManager.filePath) {
+        saveAsNewFile();
+        return;
+    }
+    mainWindow.requestText().then(function (text) {
+        return fileManager.overwriteFile(text);
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
+
+function saveAsNewFile() {
+    console.log("saveAsNewFile");
+    Promise.all([(0, _showSaveAsNewFileDialog2.default)(), mainWindow.requestText()]).then(function (_ref) {
+        var _ref2 = _slicedToArray(_ref, 2),
+            filePath = _ref2[0],
+            text = _ref2[1];
+
+        return fileManager.saveFile(filePath, text);
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
+
+function exportPDF() {
+    console.log("exportPDF");
+    mainWindow.requestText().then(function (text) {
+        var pdfWindow = (0, _createPDFWindow2.default)(text);
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
+
+_electron.app.on("ready", function () {
+    mainWindow = (0, _createMainWindow2.default)();
+    fileManager = (0, _createFileManager2.default)();
+    (0, _setAppMenu2.default)({ openFile: openFile, saveFile: saveFile, saveAsNewFile: saveAsNewFile, exportPDF: exportPDF });
+});
+
+_electron.app.on("window-all-closed", function () {
+    if (process.platform !== "darwin") {
+        _electron.app.quit();
+    }
+});
+
+_electron.app.on("activate", function (_e, hasVisibleWindows) {
+    if (!hasVisibleWindows) {
+        mainWindow = (0, _createMainWindow2.default)();
+    }
+});
+
+/***/ }),
+
+/***/ 24:
+/***/ (function(module, exports) {
+
+module.exports = require("electron");
 
 /***/ })
 

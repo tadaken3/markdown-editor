@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 198);
+/******/ 	return __webpack_require__(__webpack_require__.s = 199);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -23069,7 +23069,8 @@ if(false) {
 /* 186 */,
 /* 187 */,
 /* 188 */,
-/* 189 */
+/* 189 */,
+/* 190 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23085,17 +23086,9 @@ var _react = __webpack_require__(25);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Editor = __webpack_require__(191);
-
-var _Editor2 = _interopRequireDefault(_Editor);
-
 var _Previewer = __webpack_require__(83);
 
 var _Previewer2 = _interopRequireDefault(_Previewer);
-
-var _MarkdownEditorUI = __webpack_require__(195);
-
-var _MarkdownEditorUI2 = _interopRequireDefault(_MarkdownEditorUI);
 
 var _electron = __webpack_require__(24);
 
@@ -23107,190 +23100,46 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var MarkdownEditorUI = function (_React$Component) {
-    _inherits(MarkdownEditorUI, _React$Component);
+var PDFUI = function (_React$Component) {
+    _inherits(PDFUI, _React$Component);
 
-    _createClass(MarkdownEditorUI, [{
-        key: "render",
-        value: function render() {
-            return _react2.default.createElement(
-                "div",
-                { className: _MarkdownEditorUI2.default.markdownEditor },
-                _react2.default.createElement(_Editor2.default, {
-                    className: _MarkdownEditorUI2.default.editorArea,
-                    value: this.state.text,
-                    onChange: this.onChangeText
-                }),
-                _react2.default.createElement(_Previewer2.default, {
-                    className: _MarkdownEditorUI2.default.previewArea,
-                    value: this.state.text
-                })
-            );
-        }
-    }]);
+    function PDFUI(props) {
+        _classCallCheck(this, PDFUI);
 
-    function MarkdownEditorUI(props) {
-        _classCallCheck(this, MarkdownEditorUI);
-
-        var _this = _possibleConstructorReturn(this, (MarkdownEditorUI.__proto__ || Object.getPrototypeOf(MarkdownEditorUI)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (PDFUI.__proto__ || Object.getPrototypeOf(PDFUI)).call(this, props));
 
         _this.state = { text: "" };
-        _this.onChangeText = _this.onChangeText.bind(_this);
         return _this;
     }
 
-    _createClass(MarkdownEditorUI, [{
-        key: "onChangeText",
-        value: function onChangeText(e) {
-            this.setState({ text: e.target.value });
-        }
-    }, {
+    _createClass(PDFUI, [{
         key: "componentDidMount",
         value: function componentDidMount() {
-            var _this2 = this;
-
-            _electron.ipcRenderer.on("REQUEST_TEXT", function () {
-                _electron.ipcRenderer.send("REPLY_TEXT", _this2.state.text);
-            });
-            _electron.ipcRenderer.on("SEND_TEXT", function (_e, text) {
-                _this2.setState({ text: text });
-            });
+            var text = _electron.ipcRenderer.sendSync("REQUEST_TEXT");
+            this.setState({ text: text });
         }
     }, {
-        key: "componentWillUnmount",
-        value: function componentWillUnmount() {
-            _electron.ipcRenderer.removeAllListeners();
+        key: "render",
+        value: function render() {
+            return _react2.default.createElement(_Previewer2.default, { value: this.state.text });
         }
     }]);
 
-    return MarkdownEditorUI;
+    return PDFUI;
 }(_react2.default.Component);
 
-exports.default = MarkdownEditorUI;
+exports.default = PDFUI;
 
 /***/ }),
-/* 190 */,
-/* 191 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.default = Editor;
-
-var _react = __webpack_require__(25);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _Editor = __webpack_require__(194);
-
-var _Editor2 = _interopRequireDefault(_Editor);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function Editor(props) {
-    return _react2.default.createElement("textarea", {
-        id: "editor"
-        //className={`${style.editor} ${props.className}`}
-        , className: _Editor2.default.editor,
-        value: props.value,
-        onChange: props.onChange
-    });
-}
-
-/***/ }),
-/* 192 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(53)();
-// imports
-
-
-// module
-exports.push([module.i, "._2-jI25r2Lnhs1B41qvFWhl {\n    width: 100%;\n    border: solid #ddd 1px;\n    resize: none;\n}", ""]);
-
-// exports
-exports.locals = {
-	"editor": "_2-jI25r2Lnhs1B41qvFWhl"
-};
-
-/***/ }),
-/* 193 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(53)();
-// imports
-
-
-// module
-exports.push([module.i, ".sa9NfawEu56YQGM4c34Ms {\n    display: flex;\n    flex-direction: row;\n    height: 100%;\n    width: 100%;\n}\n\n.s0y0vPoxO5RsJb8R3QjXm {\n    margin-right: 8px;\n}\n\n.rGOY3zB4dPqKK_jITanR8 {\n    padding-left: 8px;\n}\n", ""]);
-
-// exports
-exports.locals = {
-	"markdownEditor": "sa9NfawEu56YQGM4c34Ms",
-	"editorArea": "s0y0vPoxO5RsJb8R3QjXm",
-	"previewerArea": "rGOY3zB4dPqKK_jITanR8"
-};
-
-/***/ }),
-/* 194 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(192);
-if(typeof content === 'string') content = [[module.i, content, '']];
-// add the styles to the DOM
-var update = __webpack_require__(81)(content, {});
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(false) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept("!!../../../node_modules/css-loader/index.js?modules!./Editor.css", function() {
-			var newContent = require("!!../../../node_modules/css-loader/index.js?modules!./Editor.css");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 195 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(193);
-if(typeof content === 'string') content = [[module.i, content, '']];
-// add the styles to the DOM
-var update = __webpack_require__(81)(content, {});
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(false) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept("!!../../../node_modules/css-loader/index.js?modules!./MarkdownEditorUI.css", function() {
-			var newContent = require("!!../../../node_modules/css-loader/index.js?modules!./MarkdownEditorUI.css");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
+/* 191 */,
+/* 192 */,
+/* 193 */,
+/* 194 */,
+/* 195 */,
 /* 196 */,
 /* 197 */,
-/* 198 */
+/* 198 */,
+/* 199 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23302,14 +23151,14 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactDom = __webpack_require__(82);
 
-var _MarkdownEditorUI = __webpack_require__(189);
+var _PDFUI = __webpack_require__(190);
 
-var _MarkdownEditorUI2 = _interopRequireDefault(_MarkdownEditorUI);
+var _PDFUI2 = _interopRequireDefault(_PDFUI);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-(0, _reactDom.render)(_react2.default.createElement(_MarkdownEditorUI2.default, null), document.getElementById("app"));
+(0, _reactDom.render)(_react2.default.createElement(_PDFUI2.default, null), document.getElementById("content"));
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=app.js.map
+//# sourceMappingURL=pdf.js.map
