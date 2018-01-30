@@ -23119,6 +23119,31 @@ var PDFUI = function (_React$Component) {
             this.setState({ text: text });
         }
     }, {
+        key: "componentDidUpdate",
+        value: function componentDidUpdate() {
+            this.syncImageRenderered().then(function () {
+                _electron.ipcRenderer.send("RENDERED_CONTENTS");
+            });
+        }
+    }, {
+        key: "syncImageRenderered",
+        value: function syncImageRenderered() {
+            var images = Array.prototype.slice.call(document.querySelectorAll("img"));
+            var loadingImages = images.filter(function (image) {
+                return !image.complete;
+            });
+            if (loadingImages.length === 0) {
+                return Promise.resolve();
+            }
+            return Promise.all(loadingImages.map(function (image) {
+                return new Promise(function (resolve) {
+                    return image.onload = function () {
+                        return resolve();
+                    };
+                });
+            }));
+        }
+    }, {
         key: "render",
         value: function render() {
             return _react2.default.createElement(_Previewer2.default, { value: this.state.text });
