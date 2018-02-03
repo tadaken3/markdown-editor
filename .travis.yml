@@ -34,9 +34,9 @@ deploy:
   # GitHub にリリースするための API KEY を暗号化した値
   api_key:
     secure: HVPCBrcQGWVykQPLVX7xMX8LZ1KOcNWSyQNFNbFHkKjUW2tfsH29f0ocIhse7OfRfFJ2jDD9sjKAzVyv6D/xigEamxCTqKvCky0P/HdQx18d74pLfXocZGtDFMJtpgpKvQbz1HLd96F30SQmygYSMOdZgGW8cT+L0nG92OW2kMgoKX2j+AlM+ubMpjs6g9dvnXww7ShYi3IdgXLiFE0rA6qIdKeEpq1lsNTRgNQDe9ZQcH7JOqgK/eNNS1mIqZfuWMRgli0DRFQNaH/AypOVM5RFtanJzXXgQN5BfcxFYR62PKeZ5jrYujhIEScQ4UcehGvhiwMRNMB/T9zSCacv353hZMQlE+eDhyorj3vKxG/cAgb6jMALHeGxBcTIhM88PHh3lq2CV50zItoCL5oDI85xakMreLXjaHyfJ0gacy+3fkB3iohPHqLZIhw+2xUudwyPA8og0n4umnXnc3t076MxA3mty0GTDkcpgpGxttCosRMzYbNh9LPYooIQEEzz/F679Vt5LTmCxsM/l1AuWs/1DqifSOKy8jyD9gFyquAQNqZ4GJCwt6WQpMetJNduGp8/l9p9KdU0qxuJrM7+TQ5BqT59uopN+d8XQC2Tkzc8BPOL6+W0iT8vLcCDihb7VHm4OZjMIGSs7ExemlTeM988Qq/y2fXNk7xsdLSsFs8=
-  file:
-  - dist/osx/Markdown-Editor-osx.zip
-  - dist/win/Markdown-Editor-win.zip
+  
+  # Windowsのビルド環境は作ってはいるが、今はMacのみ対応
+  file:  dist/osx/Markdown-Editor-osx.zip
   skip_cleanup: true
   on:
     repo: tadaken3/markdown-editor
