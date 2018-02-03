@@ -1,6 +1,6 @@
 {
   "name": "markdown-editor",
-  "version": "0.0.2",
+  "version": "0.0.1",
   "description": "markdown editor ",
   "main": "dist/main/index.js",
   "scripts": {
