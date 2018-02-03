@@ -1,4 +1,4 @@
-import { BrowserWindow, ipcMain } from "electron";
+import { BrowserWindow, ipcMain, shell } from "electron";
 
 class MainWindow {
     constructor() {
@@ -6,6 +6,10 @@ class MainWindow {
         this.window.loadURL(`file://${__dirname}/../../index.html`);
         this.window.on("close", () => {
             this.window = null;
+        });
+        this.window.webContents.on("will-navigate", (e, url) => {
+            e.preventDefault();
+            shell.openExternal(url)
         });
     }
     requestText(){
