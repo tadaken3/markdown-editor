@@ -1,19 +1,24 @@
 const Application = require("spectron").Application;
 const electron = require("electron");
 const path = require("path");
+const assert = require("assert");
 
 const app = new Application({
     path: electron,
     args: [path.join(__dirname,"..")]
 });
 
-app.start()
-    .then(() => app.client.getWindowCount())
-    .then((count) => {
-        if (count === 1) {
-            console.log("success test :)");
-        } else {
-            console.log("failed test :(");
-        }
-        app.stop();
+describe("アプリケーションの起動テスト", function() {
+    this.timeout(10000);
+    beforeEach(function() {
+        return app.start();
     });
+    afterEach(function() {
+        return app.stop();
+    });
+
+    it("アプリケーションを起動するとウィンドウが1つ表示される", function(){
+        return app.client.getWindowCount()
+        .then((count) => assert.equal(count, 1));
+    });
+});
