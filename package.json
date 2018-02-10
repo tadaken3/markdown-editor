@@ -13,7 +13,7 @@
     "copy": "npm run copy:resources && npm run copy:photon",
     "copy:resources": "cpx \"prod_resources/**/*\" dist",
     "copy:photon": "cpx \"node_modules/photon/dist/css/**/*\" dist/css && cpx \"node_modules/photon/dist/fonts/**/*\" dist/fonts",
-    "pack": "npm run bundle:prod && electron-packager dist \"Markdown Editor\" --platform=darwin --arch=x64 --out=dist/osx",
+    "pack": "npm run bundle:prod && electron-packager dist \"Markdown Editor\" --platform=darwin --arch=x64 --out=dist/osx --icon=images/icon.icns",
     "archive": "npm run pack && zip -r \"dist/osx/Markdown-Editor-osx.zip\" \"dist/osx/Markdown Editor-darwin-x64/\""
   },
   "author": "tadaken3",
