@@ -1,44 +1,36 @@
-# 実際には Node を使うが、Objective-C を指定することで OS X 環境で動かすようにする
 language: objective-c
 cache:
   directories:
-    - node_modules
+  - node_modules
 env:
-  # Node はコマンドを個別に実行してインストールするため、ここでバージョンを指定する
-  - NODE_VERSION="9.3"
+- NODE_VERSION="9.3"
 before_install:
-  # nvm をインストールする。Travis の OS X 環境には nvm はデフォルトで入っていない
-  - git clone https://github.com/creationix/nvm.git /tmp/.nvm
-  - source /tmp/.nvm/nvm.sh
-  # 指定バージョンの Node をインストールする
-  - nvm install $NODE_VERSION
-  # 指定バージョンの Node を有効にする
-  - nvm use --delete-prefix $NODE_VERSION
-  - node --version
+- git clone https://github.com/creationix/nvm.git /tmp/.nvm
+- source /tmp/.nvm/nvm.sh
+- nvm install $NODE_VERSION
+- nvm use --delete-prefix $NODE_VERSION
+- node --version
 install:
-  - npm install
+- npm install
 script:
-  - npm test
+- npm run bundle:dev
+- npm test
 before_deploy:
-  # brew は最新状態にする
-  - brew update
-  # Windows環境へのビルドのために Wine は必須
-  - brew install wine
-  - wine --version
-  # Windowsインストーラ作成のために makensis は必須
-  - brew install makensis
-  # ビルド + インストーラ作成 + zip化 までを各プラットフォームに対して行う
-  - npm run archive
+- brew update
+- brew install wine
+- wine --version
+- brew install makensis
+- npm run archive
 deploy:
   provider: releases
-  # GitHub にリリースするための API KEY を暗号化した値
   api_key:
     secure: HVPCBrcQGWVykQPLVX7xMX8LZ1KOcNWSyQNFNbFHkKjUW2tfsH29f0ocIhse7OfRfFJ2jDD9sjKAzVyv6D/xigEamxCTqKvCky0P/HdQx18d74pLfXocZGtDFMJtpgpKvQbz1HLd96F30SQmygYSMOdZgGW8cT+L0nG92OW2kMgoKX2j+AlM+ubMpjs6g9dvnXww7ShYi3IdgXLiFE0rA6qIdKeEpq1lsNTRgNQDe9ZQcH7JOqgK/eNNS1mIqZfuWMRgli0DRFQNaH/AypOVM5RFtanJzXXgQN5BfcxFYR62PKeZ5jrYujhIEScQ4UcehGvhiwMRNMB/T9zSCacv353hZMQlE+eDhyorj3vKxG/cAgb6jMALHeGxBcTIhM88PHh3lq2CV50zItoCL5oDI85xakMreLXjaHyfJ0gacy+3fkB3iohPHqLZIhw+2xUudwyPA8og0n4umnXnc3t076MxA3mty0GTDkcpgpGxttCosRMzYbNh9LPYooIQEEzz/F679Vt5LTmCxsM/l1AuWs/1DqifSOKy8jyD9gFyquAQNqZ4GJCwt6WQpMetJNduGp8/l9p9KdU0qxuJrM7+TQ5BqT59uopN+d8XQC2Tkzc8BPOL6+W0iT8vLcCDihb7VHm4OZjMIGSs7ExemlTeM988Qq/y2fXNk7xsdLSsFs8=
-  
-  # Windowsのビルド環境は作ってはいるが、今はMacのみ対応
-  file:  dist/osx/Markdown-Editor-osx.zip
+  file: dist/osx/Markdown-Editor-osx.zip
   skip_cleanup: true
   on:
     repo: tadaken3/markdown-editor
     tags: true
     all_branches: true
+notifications:
+  slack:
+    secure: W7i880sU6f8+xsA5Zkj70U/rJYWwMH7iI9hcPitxe+RFvX4UxYrnskmzTQzQLWQi5cf3rlai3tuH9mtRmFJaWqV7J4ReXJu/B2BEKhUxWhoC6pmQCfai8wvgh27YTgxB3K7lVsd8jHjqqt71XZH9NmO/4wcPRciLmipIqVLvlpQKl3NVglYjagoe10J3eYZWYGsF3/Pk02oFTZTxcqu1RJMOVAaQM8ZZsMcuRdVCE06T+gkAEZ0yh33n1jR2Feib+/Xao2TCC9R8NNxLW2FzWj4kuC+L5C8V21dm2CqS03PHBbD3SMZLsUF1Vu7YvIYBXXbIWcoyjxe9Ym1aCRNIEtGyISW7NxPkKP78F2fyCpwnszKEkngHoz2xiTrG5ig/32UFzdgW2tquUXhxhIIaq8/2CBvrlrSVYvOAE8DLhrDjc1PIKEKARXbhQJzgN/CK4ogAtNcJi3Eqi1txwAb2QSh5kgunSUyWO/Hh/ipGSk1V4UsvvNoAmTwvHMipsGn3QSXM0OBFDSzEL0T7agdnzJE+ND7kFIPIablrSH6wGs1JmBY4Ufv17nVrK5bpmC2XHpthXw1xq52QqWD9jxDHokP4AgD7S2OwviAN5BT126rnyDs92j3EaH+H02HZriSnXWn5X5k4dLYXPS33lKhshiYEEMomLw+VpA3evJyu09s=

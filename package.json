@@ -4,6 +4,7 @@
   "description": "markdown editor ",
   "main": "dist/main/index.js",
   "scripts": {
+    "test": "NODE_ENV=test mocha test/**/*_test.js",
     "start": "electron .",
     "bundle:prod": "npm run clean && npm run copy && webpack --env=prod",
     "bundle:dev": "npm run clean && webpack --env=dev",
@@ -27,6 +28,8 @@
     "electron": "^1.6.1",
     "electron-builder": "^2.5.0",
     "electron-packager": "^8.5.2",
+    "mocha": "^3.1.0",
+    "spectron": "^3.6.0",
     "style-loader": "^0.13.1",
     "webpack": "^2.2.0"
   },
