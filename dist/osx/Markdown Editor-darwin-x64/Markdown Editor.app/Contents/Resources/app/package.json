@@ -1,0 +1,9 @@
+{
+  "name": "markdown-editor",
+  "productName": "Markdown Editor",
+  "version": "0.0.1",
+  "main": "js/main/index.js",
+  "description": "markdown editor ",
+  "author": "tadaken3",
+  "license": "MIT"
+}
