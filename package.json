@@ -4,7 +4,7 @@
   "description": "markdown editor ",
   "main": "dist/main/index.js",
   "scripts": {
-    "test": "NODE_ENV=test mocha test/**/*_test.js",
+    "test": "npm run bundle:dev && NODE_ENV=test mocha test/**/*_test.js",
     "start": "electron .",
     "bundle:prod": "npm run clean && npm run copy && webpack --env=prod",
     "bundle:dev": "npm run clean && webpack --env=dev",

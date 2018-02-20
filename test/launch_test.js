@@ -1,16 +1,11 @@
-const Application = require("spectron").Application;
-const electron = require("electron");
-const path = require("path");
 const assert = require("assert");
-
-const app = new Application({
-    path: electron,
-    args: [path.join(__dirname,"..")]
-});
+const createApplication = require("./createApplication");
 
 describe("アプリケーションの起動テスト", function() {
     this.timeout(10000);
+    let app;
     beforeEach(function() {
+        app = createApplication();
         return app.start();
     });
     afterEach(function() {
